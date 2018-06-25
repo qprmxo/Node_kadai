@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<%include ./header.ejs%>
+	<body>
+		<h1>User List ejs</h1>
+		<table border='1'>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Age</th>
+				<th colspan='2'>Controll</th>
+			</tr>
+			<%for(var i = 0; i<result.length; i++){
+				var id = result[i].id;
+				var name = result[i].name;
+				var age = result[i].age;
+			%>
+			<tr>
+				<th><%=id%></th>
+				<th><%=name%></th>
+				<th><%=age%></th>
+				<th><a href='/process/delete?id=<%=id%>'><button type='button'>Delete</button></a></th>
+				<th><a href='/process/findUser?id=<%=id%>'><button type='button'>Update</button></a></th>
+			</tr>
+			<%
+				}
+			%>	
+		</table>
+		<%include ./footer.ejs%>
+	</body>
+</html>

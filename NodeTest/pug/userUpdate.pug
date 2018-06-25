@@ -1,0 +1,26 @@
+doctype html
+html
+  include ./header.pug
+  body
+    h1 User update form pug
+    form(action="/process/update" method="post")
+      table
+        tr
+          th ID
+          td
+            input(type="text" name="id" readonly="readonly" value=result[0].id)
+        tr    
+          th Name
+          td
+            input(type="text" name="name" value=result[0].name)
+        tr    
+          th Age
+          td
+            input(type="text" name="age" value=result[0].age)
+        tr    
+          th Password
+          td
+            input(type="text" name="password" value=result[0].password)
+            
+      input(type="submit" value="update")
+      include ./footer.pug

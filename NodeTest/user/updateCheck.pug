@@ -1,0 +1,39 @@
+doctype html
+html
+  include ./header.pug
+  script.
+    function back(){
+      history.back();
+    }
+    function check(){
+      var flag = confirm("以下の情報で会員登録しますか？");
+      if(flag){
+        document.getElementById("frm").submit();
+      }
+    }
+  body
+    h1 変更確認画面
+    form(action="update" method="post" id="frm")
+      table
+        tr
+          th ID
+          td
+            input(type="text" name="id" readonly="readonly" value=id)
+        tr
+          th name
+          td
+            input(type="text" name="name" readonly="readonly" value=name)
+        tr
+          th kana
+          td
+            input(type="text" name="kana" readonly="readonly" value=kana)
+        tr
+          th birth
+          td
+            input(type="text" name="birth" readonly="readonly" value=birth)
+        tr
+          th club
+          td
+            input(type="text" name="club" readonly="readonly" value=club)
+      button(type="button" onclick="check()") 更新
+      button(type="button" onclick="back()") 戻る

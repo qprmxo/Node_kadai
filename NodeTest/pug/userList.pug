@@ -1,0 +1,27 @@
+doctype html
+html
+  include ./header.pug
+  body
+    h1 User List pug
+    table
+      tr
+        th ID
+        th Name
+        th Age
+        th(colspan="2") Controll
+      - for(var i=0; i<result.length; i++){
+      - var id = result[i].id;
+      - var name = result[i].name;
+      - var age = result[i].age;
+      tr
+        th #{id}
+        th #{name}
+        th #{age}
+        th
+          a(href='/process/delete?id=' + id)
+            button(type='button') Delete
+        th
+          a(href='/process/findUser?id=' + id)
+            button(type='button') Update
+      - }
+    include ./footer.pug

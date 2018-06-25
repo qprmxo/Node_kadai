@@ -1,0 +1,21 @@
+doctype html
+html
+  include ./header.pug
+  body
+    h1 ログイン画面
+    form(action="login" method="post")
+      table
+        tr
+          th ID
+          td 
+            input(type="text" name="id")
+        tr
+          th Password
+          td
+            input(type="text" name="pwd")
+      button(type="submit") ログイン
+      a(href="join") 
+        button(type="button") 新規登録
+    - if(result != null){
+    p(style="color:red;") #{result}
+    - }

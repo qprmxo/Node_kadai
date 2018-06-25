@@ -1,0 +1,86 @@
+doctype html
+html
+  include ./header.pug
+  script.
+    function back(){
+      history.back();
+    }
+    function check(){
+      var id = document.getElementById("id").value;
+      var name = document.getElementById("name").value;
+      var kana = document.getElementById("kana").value;
+      var birth = document.getElementById("birth").value;
+      var club = document.getElementById("club").value;
+      
+      if(id == null || id == ""){
+        alert("ユーザーIDを入力してください。");
+        return false;
+      }
+      if(id.match(/[^A-Za-z0-9]+/)){
+        alert("ユーザーIDは半角英数字で入力してください。");
+        return false;
+      }
+      if(name == null || name == ""){
+        alert("名前を入力してください。");
+        return false;
+      }
+      if(!name.match(/[^A-Za-z0-9]+/) && name != ""){
+        alert("名前は全角で入力してください。");
+        return false;
+      }
+      if(kana == null || kana == ""){
+        alert("カナを入力してください。");
+        return false;
+      }
+      if(kana.match(/[^A-Za-z0-9]+/)){
+        alert("カナは半角で入力してください。");
+        return false;
+      }
+      if(birth == null || birth == ""){
+        alert("生年月日を選択してください。");
+        return false;
+      }
+      if(!birth.match(/^\d{4}\/\d{1,2}\/\d{1,2}$/)){
+        alert("yyyy/mm/dd様式で入力ください。");
+        return false;
+      } 
+      if(club == null || club == ""){
+        alert("委員会を入力してください。");
+        return false;
+      }
+      if(!club.match(/[^A-Za-z0-9]+/) && club != ""){
+        alert("委員会は全角で入力してください。");
+        return false;
+      }
+      document.getElementById("frm").submit();
+    }
+  body
+    h1 変更入力画面
+    form(action="updateCheck" method="post" id="frm")
+      table
+        tr
+          th ID
+          td
+            input(type="text" name="id" id="id" readonly="readonly" value=result.rows[0][0])
+        tr
+          th name
+          td
+            input(type="text" name="name" id="name" value=result.rows[0][1])
+        tr
+          th kana
+          td
+            input(type="text" name="kana" id="kana" value=result.rows[0][2])
+        tr
+          th birth
+          td
+            - var yyyy = result.rows[0][3].getFullYear().toString();
+            - var mm = (result.rows[0][3].getMonth()+1).toString();
+            - var dd = result.rows[0][3].getDate().toString();
+            - var date = yyyy + "/" + mm + "/" + dd;
+            input(type="text" name="birth" id="birth" value=date)
+        tr
+          th club
+          td
+            input(type="text" name="club" id="club" value=result.rows[0][4])
+      button(type="button" onclick="check()") 確認
+      button(type="button" onclick="back()") 戻る

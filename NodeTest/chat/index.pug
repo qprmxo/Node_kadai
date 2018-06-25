@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form(action = "enter", method = "post")
+    label Nickname
+    input(type="text" name="nickname")
+    br
+    input(type="submit" value="enter")

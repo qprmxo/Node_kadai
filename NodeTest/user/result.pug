@@ -1,0 +1,16 @@
+doctype html
+html
+  include ./header.pug
+  script.
+    function result(){
+      var msg = document.getElementById("msg").value;
+      if(msg == "完了"){
+        alert(msg);
+        location.href="search";
+      }else{
+        alert(msg);
+        location.href="/";
+      }
+    }
+  body(onload="result()")
+    input(type="hidden" id="msg" value=msg)

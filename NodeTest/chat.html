@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		var socket = io.connect();
+		var div = document.getElementById("div");
+		div.innerHTML = "Server connecting...";
+		
+		document.getElementById("btn1").onclick = function(){
+			var nickname = document.getElementById("nickname").value;
+			var msg = document.getElementById("msg").value;
+			socket.emit("sendMsg", {nickname:nickname, msg:msg});
+		};
+		socket.on("recMsg", function(data){
+			var chat = document.getElementById("chat");
+			var p = document.createElement("p");
+			p.innerHTML = data.nickname + " : " + data.msg;
+			chat.appendChild(p);
+		});
+		document.getElementById("btn2").onclick = function(){
+			var nickname = document.getElementById("nickname").value;
+			socket.emit("exit", {nickname:nickname});
+		};
+		socket.on("recExit", function(data){
+			var chat = document.getElementById("chat");
+			var p = document.createElement("p");
+			p.innerHTML = data.nickname + "is disconnect...";
+			chat.appendChild(p);
+		});
+	}
+</script>
+<body>
+	<h1>socket</h1>
+	<div id="div"></div>
+	nickname<input type="text" id="nickname"><br>
+	message<input type="text" id="msg"><br>
+	<input type="button" value="sendMsg" id="btn1"><br>
+	<input type="button" value="exit" id="btn2"><br>
+	<div id="chat"></div>
+</body>
+</html>

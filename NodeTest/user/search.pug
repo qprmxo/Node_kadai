@@ -1,0 +1,49 @@
+doctype html
+html
+  include ./header.pug
+  script.
+    function check(){
+      var id = document.getElementById("id").value;
+      var name = document.getElementById("name").value;
+      var kana = document.getElementById("kana").value;
+      
+      if(id == "" && name == "" && kana == ""){
+        alert("どれかひとつの項目は入力してください。");
+        return false;
+      }
+      if(id.match(/[^A-Za-z0-9]+/)){
+        alert("ユーザーIDは半角英数字で入力してください。");
+        return false;
+      }
+      if(!name.match(/[^A-Za-z0-9]+/) && name != ""){
+        alert("名前は全角で入力してください。");
+        return false;
+      }
+      if(kana.match(/[^A-Za-z0-9]+/)){
+        alert("カナは半角で入力してください。");
+        return false;
+      }
+          
+      document.getElementById("frm").submit();
+    }
+  body
+    h1 検索画面
+    form(action="search" method="post" id="frm")
+      table(border="1")
+        tr
+          th ID
+          td
+            input(type="text" name="id" id="id" value=id)
+        tr
+          th name
+          td
+            input(type="text" name="name" id="name" value=name)
+        tr
+          th kana
+          td
+            input(type="text" name="kana" id="kana" value=kana)
+      button(type="button" onclick="check()") 検索
+      a(href="join")
+        button(type="button") 新規登録
+      a(href="logout")
+        button(type="button") ログアウト

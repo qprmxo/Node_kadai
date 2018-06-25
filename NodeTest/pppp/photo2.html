@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>FileUpload Test</title>
+</head>
+<body>
+
+<h1>FileUpload</h1>
+<br>
+
+<form action="/process/insert" method="post" enctype="multipart/form-data">
+	<table>
+		<tr>
+			<th><label>Writer</label></th>
+			<td><input type="text" name="writer"></td>
+		</tr>
+		<tr>
+			<th><label>Regdate</label></th>
+			<td><input type="text" name="regdate"></td>
+		</tr>
+		<tr>
+			<th><label>Content</label></th>
+			<td><input type="text" name="content"></td>
+		</tr>
+		<tr>
+			<th><label>File</label></th>
+			<td><input type="file" name="photo"></td>
+		</tr>
+	</table>
+	
+	<button type="submit">Save</button>
+	<button type="reset">Reset</button>
+	
+</form>
+
+</body>
+</html>

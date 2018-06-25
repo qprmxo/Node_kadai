@@ -1,0 +1,43 @@
+doctype html
+html
+  include ./header.pug
+  script.
+    function back(){
+    	history.back();
+    }
+    function check(){
+      var flag = confirm("以下の情報で会員登録しますか？");
+      if(flag){
+        document.getElementById("frm").submit();    
+      }
+    }
+  body
+    h1 削除確認画面
+    form(action="delete" method="post" id="frm")
+      table
+        tr
+          th ID
+          td
+            input(type="text" name="id" readonly="readonly" value=result.rows[0][0])
+        tr
+          th 名前
+          td
+            input(type="text" name="name" readonly="readonly" value=result.rows[0][1])
+        tr
+          th カナ
+          td
+            input(type="text" name="kana" readonly="readonly" value=result.rows[0][2])
+        tr
+          th 生年月日
+          td
+            - var yyyy = result.rows[0][3].getFullYear().toString();
+            - var mm = (result.rows[0][3].getMonth()+1).toString();
+            - var dd  = result.rows[0][3].getDate().toString();
+            - var date = yyyy + "/" + mm + "/" + dd;
+            input(type="text" name="birth" readonly="readonly" value=date)
+        tr
+          th 委員会
+          td
+            input(type="text" name="club" readonly="readonly" value=result.rows[0][4])
+      button(type="button" onclick="check()") 削除
+      button(type="button" onclick="back()") 戻る

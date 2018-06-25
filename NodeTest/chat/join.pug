@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    meta(charset = "utf-8")
+  script(type="text/javascript" src="/chat/jquery-3.3.1.js")
+  script(type="text/javascript" src="/socket.io/socket.io.js")
+  script.
+    $(function(){
+      var room = io.connect();
+      room.on("connect", function(){
+        room.emit("join", {roomname:$("#roomname").text(), nickname:$("#nickname").text()});
+      });
+      room.on("joined", function(data){
+        var nickname = data.nickname;
+        $("ul").append("<li id='" + nickname + "'>" + nickname + "</li>");
+        $("#chatwin").prepend("<p>" + nickname + " is enter!!</p>");
+      });
+      $("#sendBtn").on("click", function(){
+        var nickname = $("#nickname").text();
+        var msg = $("#msg").val();
+        room.emit("sendMsg", {nickname:nickname, msg:msg});
+      });
+      room.on("recMsg", function(data){
+        $("#chatwin").prepend("<p>" + data.nickname + " : " + data.msg + "</p>");
+      });
+      $("#leaveBtn").click(function(){
+        var nickname = $("#nickname").text();
+        var roomname = $("#roomname").text();
+        room.emit("leaveRoom", {roomname:roomname, nickname:nickname});
+        location.href = "/enter";
+      });
+      room.on("leaveRoom", function(data){
+        var nickname = data.nickname;
+        $("#chatwin").prepend("<p>" + nickname + " is disconnect!!</p>");
+        $("#" + data.nickname).remove();
+      });
+    });
+  body
+    p Welcome!!!!
+    h1
+      span(id="roomname") #{roomname}
+      input(type="button" value="Exit" id="leaveBtn")
+    h3 AttendantsList
+    ul
+      each att in attendants
+        li(id=att) #{att}
+    div(id="chatwin" style="overflow:auto;width:300px;height:300px;border:1px solid #aaa")
+    span(id="nickname") #{nickname}
+    input(type="text" id="msg")
+    input(type="button" value="Send!" id="sendBtn")

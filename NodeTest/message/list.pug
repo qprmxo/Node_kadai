@@ -1,0 +1,31 @@
+doctype html
+html
+  include ./header.pug
+  body
+    h1 Message List pug
+    table(border="1")
+      tr
+        th Writer
+        th Regdate
+        th Content
+        th FileName
+        th File
+        th Controll
+      - for(var i=0; i<result.length; i++){
+      - var writer = result[i].writer;
+      - var regdate = result[i].regdate;
+      - var content = result[i].content;
+      - var name = result[i].original;
+      - var filename = result[i].savefile;
+      tr
+        td #{writer}
+        td #{regdate}
+        td #{content}
+        td #{name}
+        td
+          img(src="\\uploads\\" + filename)
+        td
+          a(href="/process/delete?filename=" + filename)
+            button(type="button") Delete
+      - }
+    include ./footer.pug
