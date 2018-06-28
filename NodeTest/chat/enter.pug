@@ -2,14 +2,14 @@ extends layout
 
 block content
   h1 Chatting Room
-  p Welcome!! #{nickname}
+  p Welcome!! #{nickname}様、ようこそ！
   form(action="/makeroom" method="post")
     label Title
     input(type="text" name="roomname")
-    br
+    | #{' '}
     input(type="submit" value="MakeRoom")
   ul
   each room in roomlist
     li= room
       a(href="/join/" + room) Enter!!
-  a(href="http://localhost:8082/myapp/main") メイン
+  a(href="http://localhost:8082/myapp/main") メインページに戻る
